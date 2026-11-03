@@ -1,0 +1,56 @@
+{
+  "name": "team-standup",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "demo": "vite --mode demo",
+    "demo:build": "vite build --mode demo",
+    "demo:deploy": "npm run demo:build && wrangler deploy -c wrangler.demo.jsonc",
+    "typecheck": "tsc -b --noEmit",
+    "test": "vitest run",
+    "e2e": "playwright test",
+    "check": "npm run typecheck && npm test",
+    "db:migrate:local": "wrangler d1 migrations apply DB --local",
+    "db:migrate:remote": "wrangler d1 migrations apply DB --remote",
+    "deploy": "npm run check && npm run build && wrangler d1 migrations apply DB --remote && wrangler deploy",
+    "backup": "node scripts/sync-onedrive.mjs",
+    "db:seed:local": "node scripts/seed.mjs --local --demo",
+    "db:seed:remote": "node scripts/seed.mjs --remote",
+    "db:reset:local": "node scripts/reset-local.mjs",
+    "release": "node scripts/release.mjs"
+  },
+  "dependencies": {
+    "hono": "^4.13.14",
+    "jose": "^6.2.13",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "react-router-dom": "^7.18.4"
+  },
+  "devDependencies": {
+    "@cloudflare/vite-plugin": "^1.65.0",
+    "@cloudflare/vitest-plugin": "^1.4.7",
+    "@cloudflare/vitest-pool-workers": "^0.23.0",
+    "@cloudflare/workers-types": "^5.20261025.1",
+    "@playwright/test": "^1.64.1",
+    "@types/node": "^26.6.5",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@types/sql.js": "^1.4.11",
+    "@vitejs/plugin-react": "^6.1.2",
+    "sql.js": "^1.13.0",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.5",
+    "vitest": "^4.1.12",
+    "wrangler": "^4.152.0"
+  },
+  "allowScripts": {
+    "workerd@1.20260815.1": true,
+    "workerd@1.20261019.1": true,
+    "esbuild@0.28.1": true,
+    "esbuild@0.28.2": true
+  }
+}

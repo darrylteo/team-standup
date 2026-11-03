@@ -1,0 +1,15 @@
+{
+  "_comment": "Fictional team for the public repo and demo. scripts/export-public.mjs copies this over scripts/members.json.",
+  "project": { "title": "Harbour Lab Weekly", "subtitle": "Standup", "theme": "terminal" },
+  "members": [
+    { "name": "Alex", "email": "alex.tan@example.edu", "role": "researcher", "admin": true, "handle": "alex", "avatar": { "kind": "human", "body": "male", "skin": "s3", "hair": "short", "hairColor": "h2", "outfit": "engineer", "outfitColor": "o5", "accessory": "glasses" } },
+    { "name": "Priya", "email": "priya.nair@example.edu", "role": "researcher", "admin": false, "handle": "priya", "avatar": { "kind": "human", "body": "female", "skin": "s4", "hair": "long", "hairColor": "h1", "outfit": "aviator", "outfitColor": "o2", "eyes": "almond" } },
+    { "name": "Casey", "email": "casey.lim@example.edu", "role": "researcher", "admin": false, "handle": "casey", "avatar": { "kind": "human", "body": "male", "skin": "s1", "hair": "curly", "hairColor": "h3", "outfit": "first_officer", "outfitColor": "o3", "accessory": "headset" } },
+    { "name": "Ravi", "email": "ravi.kumar@example.edu", "role": "researcher", "admin": false, "handle": "ravi", "avatar": { "kind": "human", "body": "male", "skin": "s5", "hair": "side", "hairColor": "h1", "outfit": "ground_crew", "outfitColor": "o6" } },
+    { "name": "Mei", "email": "mei.wong@example.edu", "role": "researcher", "admin": false, "handle": "mei", "avatar": { "kind": "human", "body": "female", "skin": "s1", "hair": "bun", "hairColor": "h2", "outfit": "cabin_crew", "outfitColor": "o4" } },
+    { "name": "Omar", "email": "omar.haddad@example.edu", "role": "researcher", "admin": false, "handle": "omar", "avatar": { "kind": "human", "body": "male", "skin": "s6", "hair": "spiky", "hairColor": "h1", "outfit": "casual", "outfitColor": "o1", "eyes": "dot" } },
+    { "name": "Leo", "email": "leo.martin@example.edu", "role": "researcher", "admin": false, "handle": "leo", "avatar": { "kind": "human", "body": "male", "skin": "s2", "hair": "short", "hairColor": "h3", "outfit": "lab", "outfitColor": "o2" } },
+    { "name": "Elena", "email": "elena.rossi@example.edu", "role": "prof", "admin": true, "handle": "elena", "avatar": { "kind": "human", "body": "female", "skin": "s2", "hair": "long", "hairColor": "h6", "outfit": "captain", "outfitColor": "o1", "accessory": "glasses" } },
+    { "name": "Hugo", "email": "hugo.berg@example.edu", "role": "prof", "admin": true, "handle": "hugo", "avatar": { "kind": "human", "body": "male", "skin": "s3", "hair": "bald", "hairColor": "h1", "outfit": "captain", "outfitColor": "o1" } }
+  ]
+}

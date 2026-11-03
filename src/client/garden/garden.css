@@ -1,0 +1,241 @@
+/* The garden overlay. Colours come from --gd-* tokens in tokens.css (day in light mode, evening in dark).
+   Motion is deliberately slow and eased: nothing in here should feel snappy. */
+
+.garden { position: fixed; inset: 0; z-index: 200; overflow: hidden; outline: none; color: var(--gd-ink); font-family: var(--font-body); }
+.gd-veil { position: absolute; inset: 0; background: var(--gd-veil); animation: gd-fade-in 0.45s ease both; }
+.gd-world { position: absolute; inset: 0; animation: gd-fade-in 0.7s ease 0.35s both; }
+.garden.out .gd-world, .garden.out .gd-top, .garden.out .gd-hint { animation: gd-fade-out 0.3s ease both; }
+.garden.out .gd-veil { animation: gd-fade-out 0.4s ease 0.05s both; }
+@keyframes gd-fade-in { from { opacity: 0; } }
+@keyframes gd-fade-out { to { opacity: 0; } }
+
+.gd-scenery { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.gd-cloud { animation: gd-drift 180s linear infinite; }
+@keyframes gd-drift { from { transform: translateX(-40vw); } to { transform: translateX(140vw); } }
+.gd-wave { animation: gd-wave 6s ease-in-out infinite alternate; }
+@keyframes gd-wave { to { transform: translate(-28px, 2px); } }
+/* Glints on the water fade in and out as the swell passes. */
+.gd-glint { opacity: 0; animation: gd-glint 6s ease-in-out infinite; }
+@keyframes gd-glint { 30%, 55% { opacity: 0.9; } 50% { transform: translateX(6px); } }
+/* A ship crosses the far water in the first part of its cycle and waits off screen for the rest. */
+.gd-ship { animation: gd-sail 150s linear infinite; }
+.gd-ship.slow { animation-duration: 210s; animation-direction: reverse; }
+@keyframes gd-sail { 0% { translate: -60px 0; } 45%, 100% { translate: calc(var(--sea-w) * 1px + 60px) 0; } }
+.gd-bobbing { animation: gd-bob-sea 3.2s ease-in-out infinite alternate; }
+@keyframes gd-bob-sea { to { translate: 0 1.5px; rotate: -1.5deg; } }
+.gd-sock { transform-origin: 2px -54px; animation: gd-sway 4s ease-in-out infinite alternate; transform-box: view-box; }
+@keyframes gd-sway { from { transform: rotate(-6deg); } to { transform: rotate(8deg); } }
+
+.gd-layer { position: absolute; inset: 0; touch-action: manipulation; }
+
+/* ---------- People: a 0×0 box at their feet, moved and scaled from there by the frame loop ---------- */
+.gd-char { --gd-size: clamp(58px, 6.2vw, 88px); position: absolute; left: 0; top: 0; width: 0; height: 0; transform-origin: 0 0; will-change: transform; }
+/* Hovering or focusing someone brings them (and their name tag) in front of everyone else (people stack by depth, up to 1000), but under anything flying (2000 and up), like the paper plane circling their head. */
+.gd-char:hover, .gd-char:focus-within { z-index: 1500 !important; }
+.gd-figure { position: absolute; left: calc(var(--gd-size) / -2); bottom: 0; width: var(--gd-size); height: calc(var(--gd-size) * 1.53); padding: 0; border: 0; background: none; cursor: pointer; color: inherit; font: inherit; -webkit-tap-highlight-color: transparent; }
+.gd-figure:focus-visible { outline: 3px solid var(--focus); outline-offset: 4px; border-radius: 14px; }
+.gd-shadow { position: absolute; left: 24%; right: 24%; bottom: -5px; height: 11px; border-radius: 50%; background: var(--gd-shadow); }
+.gd-bob { position: absolute; inset: 0; display: block; transform: scaleX(var(--face, 1)); transform-origin: 50% 100%; transition: translate 0.6s ease; }
+
+/* Chibi proportions: a big head (the avatar, head only) on a small round body. */
+.gd-body { position: absolute; left: 50%; bottom: 0; width: calc(var(--gd-size) * 0.79); height: calc(var(--gd-size) * 0.79); margin-left: calc(var(--gd-size) * -0.395); display: block; }
+.gd-body-svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.gd-head { position: absolute; left: 0; right: 0; bottom: calc(var(--gd-size) * 0.53); height: var(--gd-size); display: block; transform-origin: 50% 80%; animation: gd-sway-head 5s ease-in-out infinite alternate; }
+.gd-head .av-svg, .gd-head .av-svg svg { display: block; width: 100%; height: 100%; }
+.gd-head img { position: absolute; left: 19%; width: 62%; bottom: 17%; aspect-ratio: 1; border-radius: 50%; object-fit: cover; border: 3px solid var(--gd-chip-bg); }
+.gd-arm, .gd-leg, .gd-torso { transform-box: fill-box; }
+.gd-arm, .gd-leg { transform-origin: 50% 10%; transition: rotate 0.6s ease, scale 0.6s ease; }
+.gd-torso { transform-origin: 50% 100%; animation: gd-breathe 3.2s ease-in-out infinite alternate; }
+@keyframes gd-breathe { to { scale: 1 1.035; } }
+@keyframes gd-sway-head { from { rotate: -1.5deg; } to { rotate: 1.5deg; } }
+
+/* Walking: legs and arms swing in opposition, a bob on every step, a slight lean and a nodding head. */
+.gd-char[data-mode="walk"] .gd-leg.l, .gd-char[data-mode="run"] .gd-leg.l { animation: gd-leg 0.5s ease-in-out infinite alternate; }
+.gd-char[data-mode="walk"] .gd-leg.r, .gd-char[data-mode="run"] .gd-leg.r { animation: gd-leg 0.5s ease-in-out infinite alternate-reverse; }
+.gd-char[data-mode="walk"] .gd-arm.l, .gd-char[data-mode="run"] .gd-arm.l { animation: gd-arm 0.5s ease-in-out infinite alternate-reverse; }
+.gd-char[data-mode="walk"] .gd-arm.r, .gd-char[data-mode="run"] .gd-arm.r { animation: gd-arm 0.5s ease-in-out infinite alternate; }
+.gd-char[data-mode="walk"] .gd-bob { animation: gd-step 0.5s ease-in-out infinite; rotate: calc(var(--face, 1) * 3deg); }
+.gd-char[data-mode="walk"] .gd-head { animation: gd-nod 1s ease-in-out infinite; }
+.gd-char[data-mode="run"] :is(.gd-leg, .gd-arm) { animation-duration: 0.3s !important; }
+.gd-char[data-mode="run"] .gd-bob { animation: gd-step 0.3s ease-in-out infinite; rotate: calc(var(--face, 1) * 7deg); }
+.gd-char[data-mode="run"] .gd-head { animation: gd-nod 0.6s ease-in-out infinite; }
+@keyframes gd-leg { from { rotate: -18deg; } to { rotate: 18deg; } }
+@keyframes gd-arm { from { rotate: -24deg; } to { rotate: 24deg; } }
+@keyframes gd-step { 0%, 100% { translate: 0 0; } 50% { translate: 0 -3px; } }
+@keyframes gd-nod { 0%, 100% { rotate: -3deg; } 50% { rotate: 3deg; } }
+.gd-dust { position: absolute; left: 30%; width: 40%; bottom: -2px; height: 10px; opacity: 0; }
+.gd-dust::before, .gd-dust::after { content: ""; position: absolute; bottom: 0; width: 9px; height: 9px; border-radius: 50%; background: var(--gd-dust); }
+.gd-dust::before { left: 0; }
+.gd-dust::after { right: 0; animation-delay: 0.15s !important; }
+.gd-char[data-mode="run"] .gd-dust { opacity: 1; }
+.gd-char[data-mode="run"] .gd-dust::before, .gd-char[data-mode="run"] .gd-dust::after { animation: gd-puff 0.6s ease-out infinite; }
+@keyframes gd-puff { from { scale: 0.4; opacity: 0.8; } to { scale: 1.6; opacity: 0; translate: calc(var(--face, 1) * -10px) -4px; } }
+
+/* Idle moments, chosen at random when someone stops: look around, stretch, or sit down for a while. */
+.gd-char[data-idle="look"] .gd-head { animation: gd-look 3.6s ease-in-out infinite; }
+@keyframes gd-look { 0%, 100% { rotate: 0deg; translate: 0 0; } 25% { rotate: -7deg; translate: -2px 0; } 60% { rotate: 6deg; translate: 2px 0; } }
+.gd-char[data-idle="stretch"] .gd-arm.l { rotate: 150deg; }
+.gd-char[data-idle="stretch"] .gd-arm.r { rotate: -150deg; }
+.gd-char[data-idle="stretch"] .gd-head { animation: gd-yawn 2.4s ease-in-out infinite alternate; }
+@keyframes gd-yawn { to { rotate: -6deg; translate: 0 -2px; } }
+.gd-char[data-idle="sit"] .gd-bob { translate: 0 calc(var(--gd-size) * 0.17); }
+.gd-char[data-idle="sit"] .gd-leg { scale: 1 0.45; }
+.gd-char[data-idle="sit"] .gd-leg.l { rotate: 28deg; }
+.gd-char[data-idle="sit"] .gd-leg.r { rotate: -28deg; }
+.gd-char[data-idle="sit"] .gd-arm.l { rotate: -18deg; }
+.gd-char[data-idle="sit"] .gd-arm.r { rotate: 18deg; }
+
+/* ---------- The five actions, played slowly ---------- */
+.gd-figure[data-anim="hop"] .gd-bob { animation: gd-hop 0.9s cubic-bezier(0.3, 0.6, 0.4, 1) 1; }
+@keyframes gd-hop { 15% { scale: 1.06 0.92; } 45% { translate: 0 -16px; scale: 0.97 1.05; } 75% { translate: 0 0; scale: 1.05 0.95; } }
+.gd-figure[data-anim="munch"] .gd-head { animation: gd-chew 0.45s ease-in-out 0.9s 4 alternate; }
+@keyframes gd-chew { to { scale: 1.03 0.96; } }
+.gd-figure[data-anim="dance"] .gd-bob { animation: gd-dance 0.7s ease-in-out infinite alternate; }
+.gd-figure[data-anim="dance"] .gd-arm.l { rotate: 140deg; }
+.gd-figure[data-anim="dance"] .gd-arm.r { rotate: -140deg; }
+@keyframes gd-dance { from { rotate: -8deg; translate: 0 0; } to { rotate: 8deg; translate: 0 -6px; } }
+.gd-figure[data-anim="bonk"] .gd-bob { animation: gd-squash 0.7s ease-out 0.82s; }
+@keyframes gd-squash { 30% { scale: 1.12 0.78; } 65% { scale: 0.96 1.04; } }
+.gd-figure[data-anim="dizzy"] .gd-head { animation: gd-wobble 0.9s ease-in-out infinite alternate; }
+.gd-figure[data-anim="dizzy"] .gd-bob { animation: gd-sway-body 1.8s ease-in-out infinite alternate; }
+@keyframes gd-wobble { from { rotate: -8deg; } to { rotate: 8deg; } }
+@keyframes gd-sway-body { from { rotate: -3deg; } to { rotate: 3deg; } }
+.gd-figure[data-anim="watch"] .gd-head { animation: gd-watch 2.2s ease-in-out infinite; }
+@keyframes gd-watch { 0%, 100% { rotate: -9deg; translate: -3px -1px; } 50% { rotate: 9deg; translate: 3px -1px; } }
+
+/* Dizzy stars orbit above the head after a bonk. */
+.gd-stars { position: absolute; left: 50%; bottom: calc(var(--gd-size) * 1.36); width: 0; height: 0; pointer-events: none; animation: gd-pop 0.5s ease-out both, gd-out 0.6s ease-in calc(var(--life, 3s) - 600ms) forwards; }
+.gd-stars i { position: absolute; left: -7px; top: -7px; font-style: normal; font-size: 14px; line-height: 1; animation: gd-orbit 1.8s linear infinite; }
+.gd-stars i:nth-child(2) { animation-delay: -0.6s; }
+.gd-stars i:nth-child(3) { animation-delay: -1.2s; }
+@keyframes gd-orbit {
+  0% { transform: translate(calc(var(--gd-size) * 0.34), 0) scale(1); }
+  25% { transform: translate(0, calc(var(--gd-size) * 0.1)) scale(1.2); }
+  50% { transform: translate(calc(var(--gd-size) * -0.34), 0) scale(1); }
+  75% { transform: translate(0, calc(var(--gd-size) * -0.1)) scale(0.7); opacity: 0.6; }
+  100% { transform: translate(calc(var(--gd-size) * 0.34), 0) scale(1); }
+}
+
+/* Props: a snack drops softly to their mouth; the hammer winds up slowly, then a gentle bonk. */
+.gd-prop { position: absolute; left: 50%; bottom: calc(var(--gd-size) * 0.66); font-size: calc(var(--gd-size) * 0.34); line-height: 1; translate: -50% 0; animation: gd-drop 0.9s cubic-bezier(0.25, 0.8, 0.4, 1.15) both, gd-out 0.5s ease calc(var(--life, 2s) - 500ms) forwards; pointer-events: none; }
+.gd-figure[data-anim="bonk"] .gd-prop { left: 70%; bottom: calc(var(--gd-size) * 1.2); transform-origin: 85% 85%; animation: gd-windup 1.25s ease-in-out both; }
+.gd-figure[data-anim="hop"] .gd-prop { bottom: calc(var(--gd-size) * 0.4); animation: gd-out 0.5s ease calc(var(--life, 2s) - 500ms) forwards; }
+@keyframes gd-drop { from { translate: -50% calc(var(--gd-size) * -1.1); opacity: 0; } 40% { opacity: 1; } }
+@keyframes gd-windup { 0% { rotate: -40deg; opacity: 0; } 15% { opacity: 1; } 45% { rotate: -110deg; } 62% { rotate: 25deg; } 75% { rotate: 15deg; opacity: 1; } 100% { rotate: 15deg; opacity: 0; } }
+@keyframes gd-out { to { scale: 0.4; opacity: 0; } }
+
+.gd-emote { position: absolute; left: 50%; bottom: calc(var(--gd-size) * 1.5); translate: -50% 0; font-size: 22px; line-height: 1; padding: 6px 8px; border-radius: 14px; background: var(--gd-chip-bg); box-shadow: var(--shadow); animation: gd-pop 0.5s cubic-bezier(0.3, 0, 0.4, 1.4) both, gd-emote-out 0.7s ease-in calc(var(--life, 2s) - 700ms) forwards; pointer-events: none; white-space: nowrap; }
+@keyframes gd-pop { from { scale: 0; opacity: 0; } }
+@keyframes gd-emote-out { to { translate: -50% -12px; opacity: 0; } }
+
+.gd-name { position: absolute; left: 50%; top: 100%; margin-top: 8px; translate: -50% 0; font-size: 14px; font-weight: 700; padding: 3px 10px; border-radius: 999px; background: var(--gd-chip-bg); white-space: nowrap; opacity: 0; transition: opacity 0.2s; pointer-events: none; }
+.gd-figure:hover .gd-name, .gd-figure:focus-visible .gd-name { opacity: 1; }
+
+/* People away queue by the tower with their luggage. */
+.gd-case { position: absolute; left: 88%; bottom: 0; width: calc(var(--gd-size) * 0.34); height: calc(var(--gd-size) * 0.48); }
+
+.gd-flyer { position: absolute; left: 0; top: 0; font-size: 30px; line-height: 1; margin: -15px 0 0 -15px; pointer-events: none; z-index: 2000; }
+.gd-flyer.paper { margin: -12px 0 0 -20px; z-index: 3000; filter: drop-shadow(0 3px 2px var(--gd-shadow)); }
+/* A small airliner, about four times a person's width; the wheels sit on the runway's centre line. */
+.gd-flyer.jet { --gd-size: clamp(58px, 6.2vw, 88px); margin: calc(var(--gd-size) * -2.16) 0 0 calc(var(--gd-size) * -2.4); transform-origin: 50% 96.4%; z-index: 5; }
+.gd-flyer.jet svg { width: calc(var(--gd-size) * 4.8); height: auto; }
+.gd-flyer svg { display: block; }
+.gd-beacon { animation: gd-blink 1.2s steps(2, jump-none) infinite; }
+@keyframes gd-blink { 50% { opacity: 0.15; } }
+
+/* ---------- Ambient life: butterflies by day, fireflies in the evening ---------- */
+.gd-ambient { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.gd-butterfly { position: absolute; left: 0; top: 0; width: 20px; height: 16px; opacity: var(--gd-butterfly-op); }
+.gd-butterfly svg { width: 100%; height: 100%; overflow: visible; }
+.gd-butterfly .w { fill: var(--gd-butterfly-a); transform-box: fill-box; animation: gd-flap 0.32s ease-in-out infinite alternate; }
+.gd-butterfly .w.l { transform-origin: 100% 50%; }
+.gd-butterfly .w.r { transform-origin: 0% 50%; }
+.gd-butterfly .lo { fill: var(--gd-butterfly-b); }
+.gd-butterfly:is(.b1, .b3) .w:not(.lo) { fill: var(--gd-butterfly-c); }
+.gd-butterfly .bd { fill: var(--gd-ink); }
+@keyframes gd-flap { to { scale: 0.25 1; } }
+.gd-butterfly.b0 { animation: gd-path-a 34s ease-in-out infinite; }
+.gd-butterfly.b1 { animation: gd-path-b 41s ease-in-out -9s infinite; }
+.gd-butterfly.b2 { animation: gd-path-c 29s ease-in-out -17s infinite; }
+.gd-butterfly.b3 { animation: gd-path-a 46s ease-in-out -30s infinite reverse; }
+.gd-butterfly.b4 { animation: gd-path-b 37s ease-in-out -4s infinite reverse; }
+@keyframes gd-path-a { 0%, 100% { transform: translate(8vw, 62vh); } 20% { transform: translate(22vw, 54vh) rotate(8deg); } 45% { transform: translate(40vw, 66vh); } 70% { transform: translate(28vw, 78vh) rotate(-8deg); } }
+@keyframes gd-path-b { 0%, 100% { transform: translate(70vw, 58vh); } 25% { transform: translate(55vw, 70vh) rotate(-6deg); } 55% { transform: translate(84vw, 76vh); } 80% { transform: translate(92vw, 60vh) rotate(6deg); } }
+@keyframes gd-path-c { 0%, 100% { transform: translate(48vw, 82vh); } 30% { transform: translate(62vw, 64vh) rotate(10deg); } 60% { transform: translate(36vw, 58vh); } 85% { transform: translate(20vw, 72vh) rotate(-6deg); } }
+.gd-firefly { position: absolute; width: 5px; height: 5px; border-radius: 50%; background: var(--gd-firefly); box-shadow: 0 0 8px 3px var(--gd-firefly-glow); opacity: var(--gd-firefly-op); animation: gd-glow 3.6s ease-in-out infinite; }
+.gd-firefly.f1, .gd-firefly.f4 { animation: gd-glow 4.4s ease-in-out infinite, gd-float-a 17s ease-in-out infinite alternate; }
+.gd-firefly.f2, .gd-firefly.f5 { animation: gd-glow 3.2s ease-in-out infinite, gd-float-b 21s ease-in-out infinite alternate; }
+@keyframes gd-glow { 0%, 100% { scale: 0.4; } 50% { scale: 1.1; } }
+@keyframes gd-float-a { to { translate: 6vw -5vh; } }
+@keyframes gd-float-b { to { translate: -5vw -3vh; } }
+
+/* ---------- Boarding pass: a speech bubble above the person, tail pointing at them ---------- */
+.gd-pass { position: absolute; z-index: 100000; width: min(300px, calc(100vw - 24px)); translate: -50% -100%; background: var(--panel); color: var(--ink); border: 2px solid var(--line); border-radius: 22px; box-shadow: var(--shadow); padding: 12px 14px 14px; animation: gd-pop-pass 0.4s cubic-bezier(0.3, 0, 0.4, 1.3) both; transform-origin: 50% 100%; }
+.gd-pass.below { translate: -50% 0; transform-origin: 50% 0; }
+.gd-pass::after { content: ""; position: absolute; left: calc(50% + var(--tail, 0px)); bottom: -10px; width: 18px; height: 18px; margin-left: -9px; background: var(--panel); border-right: 2px solid var(--line); border-bottom: 2px solid var(--line); rotate: 45deg; border-radius: 0 0 4px 0; }
+.gd-pass.below::after { bottom: auto; top: -10px; rotate: 225deg; }
+@keyframes gd-pop-pass { from { scale: 0.6; opacity: 0; } }
+.gd-pass-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-family: var(--font-display); text-transform: var(--display-case); letter-spacing: 0.08em; font-size: 11px; color: var(--muted); border-bottom: 2px dashed var(--line); padding-bottom: 6px; margin-bottom: 8px; }
+.gd-pass-name { font-family: var(--font-display); font-size: 24px; font-weight: 700; line-height: 1.1; color: var(--amberText); }
+.gd-pass-sub { font-size: 12px; color: var(--muted); margin-bottom: 8px; }
+.gd-pass-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 12px; margin: 0 0 10px; }
+.gd-pass-grid .wide { grid-column: 1 / -1; }
+.gd-pass-grid dt { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+.gd-pass-grid dd { margin: 0; font-size: 13px; font-weight: 600; }
+.gd-pass-open { width: 100%; }
+
+/* ---------- Top bar: "Press esc to go back" on the left, the head count on the right ---------- */
+.gd-top { position: absolute; top: 16px; left: 16px; right: 16px; display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; flex-wrap: wrap; pointer-events: none; z-index: 100001; animation: gd-fade-in 0.5s ease 0.7s both; }
+.gd-chip { pointer-events: auto; background: var(--gd-chip-bg); color: var(--gd-ink); border-radius: 16px; padding: 8px 14px; box-shadow: var(--shadow); backdrop-filter: blur(6px); font-size: 14px; }
+.gd-back { border: 0; cursor: pointer; font: inherit; font-size: 15px; }
+.gd-back kbd { display: inline-block; font-family: ui-monospace, "JetBrains Mono", monospace; font-size: 12px; line-height: 1; padding: 4px 8px 3px; margin: 0 3px; border-radius: 6px; border: 1px solid var(--gd-kbd-border); border-bottom-width: 3px; background: var(--gd-kbd-bg); color: var(--gd-ink); vertical-align: 1px; }
+.gd-count { display: grid; gap: 2px; text-align: right; }
+.gd-count span { font-size: 12px; opacity: 0.85; }
+.gd-hint { position: absolute; left: 50%; bottom: 14px; translate: -50% 0; z-index: 100001; font-size: 12px; white-space: nowrap; animation: gd-fade-in 0.5s ease 0.9s both; }
+.gd-coarse { display: none; }
+@media (pointer: coarse) {
+  .gd-fine { display: none; }
+  .gd-coarse { display: inline; }
+}
+@media (max-width: 640px) {
+  .gd-count { text-align: left; }
+  .gd-hint { white-space: normal; text-align: center; width: max-content; max-width: calc(100vw - 32px); }
+}
+
+/* ---------- Scene menu: the current place as a chip, opening a list of small scene previews ---------- */
+.gd-side { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+.gd-world > .gd-scenery { animation: gd-fade-in 0.5s ease both; }
+.gd-picker { position: relative; z-index: 2; pointer-events: auto; } /* its menu opens over the head count */
+.gd-picker-btn { display: flex; align-items: center; gap: 10px; border: 0; cursor: pointer; font: inherit; padding: 6px 12px 6px 6px; text-align: left; }
+.gd-picker-btn:focus-visible, .gd-picker-opt:focus-visible { outline: 2px solid var(--gd-focus); outline-offset: 2px; }
+.gd-thumb { position: relative; flex: none; width: 56px; height: 34px; border-radius: 10px; overflow: hidden; box-shadow: inset 0 0 0 1px var(--gd-paper-line); }
+.gd-thumb svg { display: block; width: 100%; height: 100%; }
+.gd-picker-text { display: grid; line-height: 1.2; }
+.gd-picker-text b { font-size: 14px; }
+.gd-picker-text small { font-size: 12px; opacity: 0.8; }
+.gd-caret { width: 12px; height: 8px; margin-left: 2px; transition: rotate 0.2s ease; }
+.gd-picker-btn[aria-expanded="true"] .gd-caret { rotate: 180deg; }
+.gd-picker-list { position: absolute; right: 0; top: calc(100% + 8px); width: 280px; max-height: min(470px, calc(100dvh - 140px)); overflow-y: auto; margin: 0; padding: 6px; list-style: none; border-radius: 18px; background: var(--gd-menu-bg); color: var(--gd-ink); box-shadow: var(--shadow); backdrop-filter: blur(10px); animation: gd-menu-in 0.18s ease both; }
+.gd-picker-opt { display: flex; align-items: center; gap: 10px; padding: 6px 10px 6px 6px; border-radius: 12px; cursor: pointer; }
+.gd-picker-opt:hover, .gd-picker-opt:focus-visible { background: var(--gd-hover); }
+.gd-picker-opt[aria-selected="true"] { background: var(--gd-selected); }
+.gd-tick { flex: none; width: 14px; height: 12px; margin-left: auto; color: var(--gd-focus); opacity: 0; }
+.gd-picker-opt[aria-selected="true"] .gd-tick { opacity: 1; }
+@keyframes gd-menu-in { from { opacity: 0; translate: 0 -6px; } }
+@media (max-width: 640px) {
+  .gd-side { align-items: flex-start; }
+  .gd-picker-list { left: 0; right: auto; width: min(280px, calc(100vw - 32px)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gd-picker-list, .gd-world > .gd-scenery, .gd-wave, .gd-glint, .gd-bobbing { animation: none; }
+  .gd-ship { display: none; }
+}
+
+/* ---------- Facing the way they walk: the back when walking away, a three-quarter turn when crossing ---------- */
+.gd-head .gd-nape { display: none; }
+.gd-char[data-heading="back"] .gd-head .gd-face { display: none; }
+.gd-char[data-heading="back"] .gd-head .gd-nape { display: block; }
+.gd-char[data-heading="back"] .gd-front { display: none; }
+.gd-head > *, .gd-body-svg { transition: transform 0.35s ease; }
+.gd-char[data-heading="side"] .gd-head > * { transform: translateX(9%) perspective(240px) rotateY(34deg) rotate(5deg); }
+.gd-char[data-heading="side"] .gd-body-svg { transform: perspective(240px) rotateY(24deg); }

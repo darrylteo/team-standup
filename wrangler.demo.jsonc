@@ -1,0 +1,8 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  // Public demo: static files only, with no Worker script, so requests are free and nothing is shared between visitors.
+  // `npm run demo:deploy` builds dist-demo and uploads it to https://team-standup-demo.<subdomain>.workers.dev.
+  "name": "team-standup-demo",
+  "compatibility_date": "2026-10-01",
+  "assets": { "directory": "./dist-demo", "not_found_handling": "single-page-application" }
+}

@@ -1,0 +1,575 @@
+/* Design tokens — the only place raw colours may live (rule C3).
+   Palette A "Night Terminal": navy + amber signage; light "daylight terminal" follows the system or the toggle. */
+
+:root {
+  color-scheme: light;
+  --bg: #eef1f6;
+  --panel: #ffffff;
+  --panel2: #f4f6fa;
+  --ink: #0d1726;
+  --muted: #4a5870;
+  --line: #d5dce7;
+  --flap: #13213b;
+  --flapInk: #ffd166;
+  --flapInk2: #e8eef8;
+  --flapDim: #8796ad;
+  --flapSeam: rgba(0, 0, 0, 0.6);
+  --amber: #ffc233;
+  --amberText: #8a5800;
+  --onAmber: #1a1200;
+  --done: #13804f;
+  --issue: #c2352a;
+  --wait: #8a5800;
+  --next: #1f6fd1;
+  --fun: #a3306f;
+  --file: #4f5d73;
+  --doneBg: #e2f3ea;
+  --issueBg: #fbe6e3;
+  --waitBg: #fdf0d4;
+  --nextBg: #e0edf8;
+  --funBg: #f8e3ee;
+  --fileBg: #eceff4;
+  --ring: #1f6fd1;
+  --track: #dde3ec;
+  --focus: #1f6fd1;
+  --overlay: rgba(7, 18, 42, 0.45);
+  --shadow: 0 1px 0 rgba(13, 27, 51, 0.06), 0 10px 30px -18px rgba(13, 27, 51, 0.35);
+
+
+  /* Custom flair colours: tinted background + readable text, per theme. */
+  --flair-amber-bg: #fdecc4; --flair-amber-fg: #6b4700;
+  --flair-sky-bg: #d8ecfb; --flair-sky-fg: #0f4f7d;
+  --flair-mint-bg: #d5f3e4; --flair-mint-fg: #0f5e3c;
+  --flair-coral-bg: #fde0da; --flair-coral-fg: #8f2a1d;
+  --flair-lilac-bg: #e8e0fa; --flair-lilac-fg: #4a2f8a;
+  --flair-rose-bg: #fadbe8; --flair-rose-fg: #852350;
+  --flair-slate-bg: #e3e8ef; --flair-slate-fg: #34435a;
+  --flair-lime-bg: #e6f5c9; --flair-lime-fg: #3f5c08;
+
+  /* Profile backgrounds. */
+  --on-bg: #ffffff;
+
+  /* Colour behind a drawn avatar (profile.avatarBg); content colours, same in both themes. */
+  --avbg-navy: #22314f;
+  --avbg-sky: #bfe0f7;
+  --avbg-mint: #c4ecd9;
+  --avbg-sand: #f1e2c2;
+  --avbg-peach: #ffd2bd;
+  --avbg-rose: #f7cfdc;
+  --avbg-lilac: #ddd3f5;
+  --avbg-slate: #c9d2df;
+
+  /* Form fields: stronger edges than panels so inputs stand out. */
+  --field-bg: #ffffff;
+  --field-border: #b4bfd0;
+  --placeholder: #6b7891;
+
+  /* Avatar palette: content colours, identical in both themes (from design/v2/avatar.css). */
+  /* skin: base + shade */
+  --av-s1: #fbe2cf; --av-s1-sh: #efc6aa;
+  --av-s2: #f6d1b1; --av-s2-sh: #e6b48f;
+  --av-s3: #eebf98; --av-s3-sh: #d9a175;
+  --av-s4: #d9a179; --av-s4-sh: #c0855c;
+  --av-s5: #bf8460; --av-s5-sh: #a26a48;
+  --av-s6: #9c6845; --av-s6-sh: #815335;
+  --av-s7: #6f4a33; --av-s7-sh: #583826;
+
+  /* hair (also used for head coverings) */
+  --av-h1: #3a302e; --av-h1-sh: #251d1c;
+  --av-h2: #5a3d2e; --av-h2-sh: #3f2a1f;
+  --av-h3: #7a4f33; --av-h3-sh: #5d3a24;
+  --av-h4: #a64b2a; --av-h4-sh: #84381d;
+  --av-h5: #e3bf72; --av-h5-sh: #c69f52;
+  --av-h6: #bdb9b3; --av-h6-sh: #9b9790;
+  --av-h7: #2e4a7d; --av-h7-sh: #213762;
+  --av-h8: #c9637e; --av-h8-sh: #a64b64;
+
+  /* outfit colours */
+  --av-o1: #22345c; --av-o1-sh: #172647;
+  --av-o2: #3d8fd6; --av-o2-sh: #2c73b4;
+  --av-o3: #cf4a42; --av-o3-sh: #ab352e;
+  --av-o4: #2f8f5b; --av-o4-sh: #237248;
+  --av-o5: #7b4b8e; --av-o5-sh: #613a71;
+  --av-o6: #424a57; --av-o6-sh: #313741;
+
+  /* face + fixed parts */
+  --av-ink: #1f1b22;
+  --av-iris: #3b2a24;   /* V4 iris */
+  --av-mouth: #8c3d3d;
+  --av-lip: #d9707b;
+  --av-blush: #ff8f8f;
+  --av-white: #fbfbfd; --av-white-sh: #dfe3ea;
+  --av-gold: #e9b632;
+  --av-band: #1c202b;
+  --av-peak: #13161d;
+  --av-scarf: #f1bf3d; --av-scarf-sh: #d39f22;
+  --av-hivis: #d9f03c; --av-hivis-sh: #b9d21f;
+  --av-hivis-cup: #ff7a1a;
+  --av-reflect: #cfd6df;
+  --av-gear: #2b313b;
+  --av-leather: #7c4b2b; --av-leather-sh: #5f381f;
+  --av-shearling: #f2e4ca; --av-shearling-sh: #dccaa8;
+  --av-lens: #63bfdf;
+  --av-shade-lens: #1f2630;
+  --av-brass: #c8963e;
+  --av-pen: #3d8fd6;
+
+  /* animals */
+  --av-shiba: #e8953f; --av-shiba-sh: #c97a29;
+  --av-cream: #fcefdf; --av-cream-sh: #ead6bd;
+  --av-beagle: #cb8c4c; --av-beagle-sh: #ad723a;
+  --av-beagle-ear: #7a4a2b; --av-beagle-ear-sh: #5f3820;
+  --av-tabby: #a2a8b0; --av-tabby-sh: #858b94;
+  --av-tabby-stripe: #6b7079;
+  --av-tux: #3d3f48; --av-tux-sh: #2b2d34;
+  --av-cow: #fbfbfd; --av-cow-sh: #e1e4ea;
+  --av-cow-patch: #2b2b30;
+  --av-muzzle: #f4b7c1; --av-muzzle-sh: #e39aa8;
+  --av-nose-pink: #e57f95;
+  --av-horn: #f2e4ca;
+  --av-rabbit: #f8f5f3; --av-rabbit-sh: #e6dfda;
+  --av-ear-pink: #f6b9c6;
+  --av-eye-cat: #c7da4b;
+
+  /* rendering helpers */
+  --av-line: #2b2430;   /* faint edge round animal heads */
+  --av-hi: #ffffff;     /* highlights and eye sparkles */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark; /* native date pickers, dropdown lists and scrollbars follow the dark theme */
+    --bg: #0b1220;
+    --panel: #131c2e;
+    --panel2: #1a2540;
+    --ink: #eef2f8;
+    --muted: #9fb0c8;
+    --line: #24324d;
+    --flap: #1c2742;
+    --flapInk: #ffc233;
+    --amberText: #ffc233;
+    --done: #3ddc97;
+    --issue: #ff7a6b;
+    --wait: #ffc233;
+    --next: #5aa9ff;
+    --fun: #ff94d1;
+    --file: #a9b8cf;
+    --doneBg: rgba(79, 217, 160, 0.09);
+    --issueBg: rgba(255, 131, 120, 0.09);
+    --waitBg: rgba(255, 194, 51, 0.09);
+    --nextBg: rgba(108, 200, 255, 0.09);
+    --funBg: rgba(255, 148, 209, 0.09);
+    --fileBg: rgba(169, 184, 207, 0.08);
+    --ring: #5aa9ff;
+    --track: #24324d;
+    --focus: #ffc233;
+    --overlay: rgba(0, 0, 0, 0.6);
+    --field-bg: #0c1424;
+    --field-border: #3a4d73;
+    --placeholder: #8796b0;
+
+    --flair-amber-bg: rgba(255, 194, 51, 0.16); --flair-amber-fg: #ffd56b;
+    --flair-sky-bg: rgba(108, 200, 255, 0.16); --flair-sky-fg: #9ad8ff;
+    --flair-mint-bg: rgba(79, 217, 160, 0.16); --flair-mint-fg: #7fe6bb;
+    --flair-coral-bg: rgba(255, 131, 120, 0.16); --flair-coral-fg: #ffaaa0;
+    --flair-lilac-bg: rgba(178, 150, 255, 0.18); --flair-lilac-fg: #cdbdff;
+    --flair-rose-bg: rgba(255, 148, 209, 0.16); --flair-rose-fg: #ffb4de;
+    --flair-slate-bg: rgba(169, 184, 207, 0.14); --flair-slate-fg: #c5d1e3;
+    --flair-lime-bg: rgba(170, 220, 80, 0.16); --flair-lime-fg: #c6ec85;
+    --shadow: 0 20px 40px -24px rgba(0, 0, 0, 0.8);
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0b1220;
+  --panel: #131c2e;
+  --panel2: #1a2540;
+  --ink: #eef2f8;
+  --muted: #9fb0c8;
+  --line: #24324d;
+  --flap: #1c2742;
+  --flapInk: #ffc233;
+  --amberText: #ffc233;
+  --done: #3ddc97;
+  --issue: #ff7a6b;
+  --wait: #ffc233;
+  --next: #5aa9ff;
+  --fun: #ff94d1;
+  --file: #a9b8cf;
+  --doneBg: rgba(79, 217, 160, 0.09);
+  --issueBg: rgba(255, 131, 120, 0.09);
+  --waitBg: rgba(255, 194, 51, 0.09);
+  --nextBg: rgba(108, 200, 255, 0.09);
+  --funBg: rgba(255, 148, 209, 0.09);
+  --fileBg: rgba(169, 184, 207, 0.08);
+  --ring: #5aa9ff;
+  --track: #24324d;
+  --focus: #ffc233;
+  --overlay: rgba(0, 0, 0, 0.6);
+  --field-bg: #0c1424;
+  --field-border: #3a4d73;
+  --placeholder: #8796b0;
+
+  --flair-amber-bg: rgba(255, 194, 51, 0.16); --flair-amber-fg: #ffd56b;
+  --flair-sky-bg: rgba(108, 200, 255, 0.16); --flair-sky-fg: #9ad8ff;
+  --flair-mint-bg: rgba(79, 217, 160, 0.16); --flair-mint-fg: #7fe6bb;
+  --flair-coral-bg: rgba(255, 131, 120, 0.16); --flair-coral-fg: #ffaaa0;
+  --flair-lilac-bg: rgba(178, 150, 255, 0.18); --flair-lilac-fg: #cdbdff;
+  --flair-rose-bg: rgba(255, 148, 209, 0.16); --flair-rose-fg: #ffb4de;
+  --flair-slate-bg: rgba(169, 184, 207, 0.14); --flair-slate-fg: #c5d1e3;
+  --flair-lime-bg: rgba(170, 220, 80, 0.16); --flair-lime-fg: #c6ec85;
+  --shadow: 0 20px 40px -24px rgba(0, 0, 0, 0.8);
+}
+
+/* ---------- Project themes ----------
+   Each project picks one palette (projects.theme). "terminal" is the default above; the other two override it.
+   Light values sit on [data-palette]; dark values repeat for the system preference and the explicit toggle. */
+
+:root {
+  /* Type and shape: the Night Terminal defaults. */
+  --font-display: "Barlow Condensed", Inter, sans-serif;
+  --font-body: Inter, system-ui, sans-serif;
+  --display-case: uppercase;
+  /* Page background texture: dots, or graph paper for Lab Notebook. */
+  --bg-pattern: radial-gradient(var(--line) 1px, transparent 1px);
+  --bg-pattern-size: 22px 22px;
+  --r-panel: 14px;
+  --r-btn: 10px;
+  --r-chip: 999px;
+  --r-flap: 3px;
+
+  /* Theme-picker swatches: each card shows its own theme whatever the page uses, so these are fixed. */
+  --tp-terminal-bg: #0b1220; --tp-terminal-bar: #1c2742; --tp-terminal-accent: #ffc233; --tp-terminal-line: #3a4d73;
+  --tp-lounge-bg: #e9f4fb; --tp-lounge-bar: #1c3142; --tp-lounge-accent: #0b72a6; --tp-lounge-line: #cfe3f0;
+  --tp-runway-bg: #f5f5f2; --tp-runway-bar: #15171c; --tp-runway-accent: #ff5a1f; --tp-runway-line: #e1e1db;
+  --tp-notebook-bg: #f7f1e3; --tp-notebook-bar: #1d2f5e; --tp-notebook-accent: #1d4ed8; --tp-notebook-line: #d9cfb8;
+  --tp-studio-bg: #f3ede4; --tp-studio-bar: #2d2620; --tp-studio-accent: #c4421d; --tp-studio-line: #e6dccd;
+}
+
+/* B · Sky Lounge: sky-tinted whites, pill buttons, rounded type. */
+:root[data-palette="lounge"] {
+  --font-display: "M PLUS Rounded 1c", Nunito, sans-serif;
+  --font-body: Nunito, system-ui, sans-serif;
+  --display-case: none;
+  --r-panel: 22px;
+  --r-btn: 999px;
+  --r-chip: 999px;
+  --r-flap: 6px;
+
+  --bg: #e9f4fb;
+  --panel: #ffffff;
+  --panel2: #f3f9fd;
+  --ink: #1c3142;
+  --muted: #4e6476;
+  --line: #cfe3f0;
+  --flap: #1c3142;
+  --flapInk: #ffffff;
+  --flapInk2: #ffffff;
+  --flapDim: #8aa3b8;
+  --amber: #0b72a6;
+  --amberText: #0b6b9e;
+  --onAmber: #ffffff;
+  --done: #17834e;
+  --issue: #c63d33;
+  --wait: #946300;
+  --next: #0b6b9e;
+  --doneBg: #e0f3e9;
+  --issueBg: #fbe5e2;
+  --waitBg: #fbefd3;
+  --nextBg: #dff0fa;
+  --funBg: #f8e3ee;
+  --fileBg: #eaf2f8;
+  --ring: #0b72a6;
+  --track: #d6e9f5;
+  --focus: #0b72a6;
+  --field-bg: #ffffff;
+  --field-border: #9fc3dc;
+  --placeholder: #5f7a90;
+  --shadow: 0 1px 0 rgba(28, 49, 66, 0.05), 0 12px 30px -18px rgba(11, 114, 166, 0.35);
+}
+
+/* C · Runway: almost colourless, one runway-orange accent, taxiway-yellow names. */
+:root[data-palette="runway"] {
+  --font-display: Archivo, Inter, sans-serif;
+  --font-body: Inter, system-ui, sans-serif;
+  --display-case: uppercase;
+  --r-panel: 10px;
+  --r-btn: 7px;
+  --r-chip: 5px;
+  --r-flap: 2px;
+
+  --bg: #f5f5f2;
+  --panel: #ffffff;
+  --panel2: #f0f0ec;
+  --ink: #15171c;
+  --muted: #5a5f6b;
+  --line: #e1e1db;
+  --flap: #15171c;
+  --flapInk: #f5c400;
+  --flapInk2: #f5f5f2;
+  --flapDim: #8b8f98;
+  --amber: #ff5a1f;
+  --amberText: #c2410c;
+  --onAmber: #170700;
+  --done: #12805c;
+  --issue: #c8322b;
+  --wait: #8f6a00;
+  --next: #2f5f9e;
+  --doneBg: #e2f2ea;
+  --issueBg: #fbe4e1;
+  --waitBg: #f8efd2;
+  --nextBg: #e5ecf6;
+  --funBg: #f7e4ee;
+  --fileBg: #efefea;
+  --ring: #ff5a1f;
+  --track: #e6e6e0;
+  --focus: #c2410c;
+  --field-bg: #ffffff;
+  --field-border: #c4c4bc;
+  --placeholder: #6b707b;
+  --shadow: 0 1px 0 rgba(21, 23, 28, 0.05), 0 10px 26px -20px rgba(21, 23, 28, 0.4);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root[data-palette="lounge"]:not([data-theme="light"]) {
+    --bg: #0d1b2b; --panel: #142739; --panel2: #1b3249; --ink: #eaf5fc; --muted: #a3bccd; --line: #24405a;
+    --flap: #081421; --flapInk: #eaf5fc; --flapInk2: #eaf5fc; --flapDim: #7f9bb3;
+    --amber: #4cc3ff; --amberText: #6fd0ff; --onAmber: #04263a;
+    --done: #4fd690; --issue: #ff8a7d; --wait: #ffcf5c; --next: #6fd0ff;
+    --doneBg: rgba(79, 214, 144, 0.1); --issueBg: rgba(255, 138, 125, 0.1); --waitBg: rgba(255, 207, 92, 0.1);
+    --nextBg: rgba(111, 208, 255, 0.1); --funBg: rgba(255, 148, 209, 0.1); --fileBg: rgba(163, 188, 205, 0.08);
+    --ring: #4cc3ff; --track: #24405a; --focus: #6fd0ff;
+    --field-bg: #0f2032; --field-border: #36597a; --placeholder: #8aa5ba;
+    --shadow: 0 20px 40px -24px rgba(0, 0, 0, 0.8);
+  }
+  :root[data-palette="runway"]:not([data-theme="light"]) {
+    --bg: #0f1012; --panel: #17181c; --panel2: #1e2025; --ink: #ecedef; --muted: #9b9fa9; --line: #2a2c33;
+    --flap: #050506; --flapInk: #f5c400; --flapInk2: #ecedef; --flapDim: #7d818b;
+    --amber: #ff7a45; --amberText: #ff8f5f; --onAmber: #1a0800;
+    --done: #3fd19c; --issue: #ff7b70; --wait: #f5c400; --next: #8fb4ec;
+    --doneBg: rgba(63, 209, 156, 0.09); --issueBg: rgba(255, 123, 112, 0.09); --waitBg: rgba(245, 196, 0, 0.09);
+    --nextBg: rgba(143, 180, 236, 0.09); --funBg: rgba(255, 148, 209, 0.09); --fileBg: rgba(155, 159, 169, 0.08);
+    --ring: #ff7a45; --track: #2a2c33; --focus: #ff8f5f;
+    --field-bg: #121316; --field-border: #3d4049; --placeholder: #878b95;
+    --shadow: 0 20px 40px -24px rgba(0, 0, 0, 0.85);
+  }
+}
+:root[data-palette="lounge"][data-theme="dark"] {
+  --bg: #0d1b2b; --panel: #142739; --panel2: #1b3249; --ink: #eaf5fc; --muted: #a3bccd; --line: #24405a;
+  --flap: #081421; --flapInk: #eaf5fc; --flapInk2: #eaf5fc; --flapDim: #7f9bb3;
+  --amber: #4cc3ff; --amberText: #6fd0ff; --onAmber: #04263a;
+  --done: #4fd690; --issue: #ff8a7d; --wait: #ffcf5c; --next: #6fd0ff;
+  --doneBg: rgba(79, 214, 144, 0.1); --issueBg: rgba(255, 138, 125, 0.1); --waitBg: rgba(255, 207, 92, 0.1);
+  --nextBg: rgba(111, 208, 255, 0.1); --funBg: rgba(255, 148, 209, 0.1); --fileBg: rgba(163, 188, 205, 0.08);
+  --ring: #4cc3ff; --track: #24405a; --focus: #6fd0ff;
+  --field-bg: #0f2032; --field-border: #36597a; --placeholder: #8aa5ba;
+  --shadow: 0 20px 40px -24px rgba(0, 0, 0, 0.8);
+}
+:root[data-palette="runway"][data-theme="dark"] {
+  --bg: #0f1012; --panel: #17181c; --panel2: #1e2025; --ink: #ecedef; --muted: #9b9fa9; --line: #2a2c33;
+  --flap: #050506; --flapInk: #f5c400; --flapInk2: #ecedef; --flapDim: #7d818b;
+  --amber: #ff7a45; --amberText: #ff8f5f; --onAmber: #1a0800;
+  --done: #3fd19c; --issue: #ff7b70; --wait: #f5c400; --next: #8fb4ec;
+  --doneBg: rgba(63, 209, 156, 0.09); --issueBg: rgba(255, 123, 112, 0.09); --waitBg: rgba(245, 196, 0, 0.09);
+  --nextBg: rgba(143, 180, 236, 0.09); --funBg: rgba(255, 148, 209, 0.09); --fileBg: rgba(155, 159, 169, 0.08);
+  --ring: #ff7a45; --track: #2a2c33; --focus: #ff8f5f;
+  --field-bg: #121316; --field-border: #3d4049; --placeholder: #878b95;
+  --shadow: 0 20px 40px -24px rgba(0, 0, 0, 0.85);
+}
+
+/* D · Lab Notebook (design round 1, option B): graph paper, ink blue, typewriter labels. */
+:root[data-palette="notebook"] {
+  --font-display: "IBM Plex Mono", ui-monospace, monospace;
+  --font-body: "IBM Plex Sans", system-ui, sans-serif;
+  --display-case: uppercase;
+  --r-panel: 4px;
+  --r-btn: 6px;
+  --r-chip: 4px;
+  --r-flap: 2px;
+  --grid: rgba(31, 58, 122, 0.075);
+  --bg-pattern: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  --bg-pattern-size: 24px 24px;
+
+  --bg: #f7f1e3;
+  --panel: #fffcf4;
+  --panel2: #f4ecdb;
+  --ink: #23283a;
+  --muted: #5d5a52;
+  --line: #d9cfb8;
+  --flap: #1d2f5e;
+  --flapInk: #fff0a0;
+  --flapInk2: #fffcf4;
+  --flapDim: #9aa6c8;
+  --amber: #1d4ed8;
+  --amberText: #1d4ed8;
+  --onAmber: #ffffff;
+  --done: #2f7a3a;
+  --issue: #b8322b;
+  --wait: #8a5a00;
+  --next: #1d4ed8;
+  --doneBg: #e3f4d6;
+  --issueBg: #ffe3ea;
+  --waitBg: #fff3c4;
+  --nextBg: #e1efff;
+  --funBg: #ffe8d1;
+  --fileBg: #eee9dc;
+  --ring: #1d4ed8;
+  --track: #e3dccb;
+  --focus: #1d4ed8;
+  --field-bg: #fffcf4;
+  --field-border: #b9ad92;
+  --placeholder: #77736a;
+  --shadow: 0 1px 1px rgba(60, 40, 10, 0.08), 0 8px 22px -14px rgba(60, 40, 10, 0.35);
+}
+
+/* E · Cozy Studio (design round 1, option C): warm paper, terracotta, soft rounded shapes. */
+:root[data-palette="studio"] {
+  --font-display: Fredoka, Nunito, sans-serif;
+  --font-body: Nunito, system-ui, sans-serif;
+  --display-case: none;
+  --r-panel: 20px;
+  --r-btn: 14px;
+  --r-chip: 999px;
+  --r-flap: 8px;
+
+  --bg: #f3ede4;
+  --panel: #fffaf2;
+  --panel2: #f8f1e6;
+  --ink: #2d2620;
+  --muted: #6b5f53;
+  --line: #e6dccd;
+  --flap: #2d2620;
+  --flapInk: #ffd9a8;
+  --flapInk2: #fffaf2;
+  --flapDim: #a8998a;
+  --amber: #c4421d;
+  --amberText: #b23c1a;
+  --onAmber: #ffffff;
+  --done: #2b6a43;
+  --issue: #9c3434;
+  --wait: #7a5300;
+  --next: #255786;
+  --doneBg: #dcefe1;
+  --issueBg: #f8dcdc;
+  --waitBg: #f9e9bd;
+  --nextBg: #d9e8f6;
+  --funBg: #fbe0cf;
+  --fileBg: #ece6dc;
+  --ring: #2b8a6e;
+  --track: #eadfce;
+  --focus: #b23c1a;
+  --field-bg: #fffdf8;
+  --field-border: #cdbca6;
+  --placeholder: #85776a;
+  --shadow: 0 2px 0 rgba(80, 55, 30, 0.06), 0 14px 30px -20px rgba(80, 55, 30, 0.45);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root[data-palette="notebook"]:not([data-theme="light"]) {
+    --bg: #141a2b; --panel: #1b2338; --panel2: #222b44; --ink: #e8eaf2; --muted: #a6adc2; --line: #2e3956;
+    --flap: #0d1220; --flapInk: #fff0a0; --flapInk2: #e8eaf2; --flapDim: #7d88a8;
+    --amber: #8fb0ff; --amberText: #a5c0ff; --onAmber: #0f1527;
+    --done: #8fdc9a; --issue: #f08a86; --wait: #f2cf73; --next: #a5c0ff;
+    --doneBg: rgba(143, 220, 154, 0.1); --issueBg: rgba(240, 138, 134, 0.1); --waitBg: rgba(242, 207, 115, 0.1);
+    --nextBg: rgba(165, 192, 255, 0.1); --funBg: rgba(255, 148, 209, 0.1); --fileBg: rgba(166, 173, 194, 0.08);
+    --ring: #8fb0ff; --track: #2c3654; --focus: #a5c0ff;
+    --field-bg: #161d30; --field-border: #3d4a6e; --placeholder: #8a93ad;
+    --grid: rgba(200, 215, 255, 0.06);
+    --shadow: 0 12px 26px -16px rgba(0, 0, 0, 0.8);
+  }
+  :root[data-palette="studio"]:not([data-theme="light"]) {
+    --bg: #1d1a17; --panel: #29241f; --panel2: #322c26; --ink: #f4ede3; --muted: #bcae9e; --line: #3d362f;
+    --flap: #14110f; --flapInk: #ffd9a8; --flapInk2: #f4ede3; --flapDim: #8f8273;
+    --amber: #ff8a5c; --amberText: #ff9d74; --onAmber: #231a14;
+    --done: #8fd6a8; --issue: #f4a3a3; --wait: #f2cf73; --next: #9cc8f2;
+    --doneBg: #24352a; --issueBg: #3c2626; --waitBg: #3a321c; --nextBg: #1f2e3d; --funBg: #3c2a20; --fileBg: #302b26;
+    --ring: #6fd3b1; --track: #3b342c; --focus: #ff9d74;
+    --field-bg: #221e1a; --field-border: #54493e; --placeholder: #9c8f80;
+    --shadow: 0 14px 30px -18px rgba(0, 0, 0, 0.7);
+  }
+}
+:root[data-palette="notebook"][data-theme="dark"] {
+  --bg: #141a2b; --panel: #1b2338; --panel2: #222b44; --ink: #e8eaf2; --muted: #a6adc2; --line: #2e3956;
+  --flap: #0d1220; --flapInk: #fff0a0; --flapInk2: #e8eaf2; --flapDim: #7d88a8;
+  --amber: #8fb0ff; --amberText: #a5c0ff; --onAmber: #0f1527;
+  --done: #8fdc9a; --issue: #f08a86; --wait: #f2cf73; --next: #a5c0ff;
+  --doneBg: rgba(143, 220, 154, 0.1); --issueBg: rgba(240, 138, 134, 0.1); --waitBg: rgba(242, 207, 115, 0.1);
+  --nextBg: rgba(165, 192, 255, 0.1); --funBg: rgba(255, 148, 209, 0.1); --fileBg: rgba(166, 173, 194, 0.08);
+  --ring: #8fb0ff; --track: #2c3654; --focus: #a5c0ff;
+  --field-bg: #161d30; --field-border: #3d4a6e; --placeholder: #8a93ad;
+  --grid: rgba(200, 215, 255, 0.06);
+  --shadow: 0 12px 26px -16px rgba(0, 0, 0, 0.8);
+}
+:root[data-palette="studio"][data-theme="dark"] {
+  --bg: #1d1a17; --panel: #29241f; --panel2: #322c26; --ink: #f4ede3; --muted: #bcae9e; --line: #3d362f;
+  --flap: #14110f; --flapInk: #ffd9a8; --flapInk2: #f4ede3; --flapDim: #8f8273;
+  --amber: #ff8a5c; --amberText: #ff9d74; --onAmber: #231a14;
+  --done: #8fd6a8; --issue: #f4a3a3; --wait: #f2cf73; --next: #9cc8f2;
+  --doneBg: #24352a; --issueBg: #3c2626; --waitBg: #3a321c; --nextBg: #1f2e3d; --funBg: #3c2a20; --fileBg: #302b26;
+  --ring: #6fd3b1; --track: #3b342c; --focus: #ff9d74;
+  --field-bg: #221e1a; --field-border: #54493e; --placeholder: #9c8f80;
+  --shadow: 0 14px 30px -18px rgba(0, 0, 0, 0.7);
+}
+
+/* ---------- Garden (src/client/garden) ----------
+   The same in every project theme: a sunny airfield in light mode, a starry evening in dark mode. */
+:root {
+  --gd-sky-top: #8fd3f4; --gd-sky-bottom: #dcf3ff; --gd-sun: #ffd45c; --gd-star: #ffffff; --gd-star-op: 0; --gd-cloud: #ffffff;
+  --gd-grass: #9bd56b; --gd-grass2: #7fc25a; --gd-hill-far: #b5dd8e;
+  --gd-leaf: #5fb35a; --gd-leaf2: #79c96a; --gd-trunk: #9a6b47; --gd-flower-a: #ff9fb8; --gd-flower-b: #fff3a0; --gd-flower-c: #b9a7ff;
+  --gd-mtn: #9db4c8; --gd-mtn2: #8aa3ba; --gd-snow: #f7fbff; --gd-pine: #4f9a64;
+  --gd-sea: #52c3e3; --gd-sea2: #a8e7f5; --gd-sand: #f3dfaa; --gd-sand2: #e2c684; --gd-palm: #4fae6a;
+  --gd-runway: #7d8590; --gd-runway-mark: #ffffff; --gd-light: #ffe28a; --gd-light-op: 0.35;
+  --gd-tower: #e8e2d6; --gd-tower-glass: #8fd3f4; --gd-sock: #ff8a3d; --gd-sock2: #ffffff; --gd-hangar: #c9d2db; --gd-hangar-door: #9aa6b2;
+  --gd-plane: #ffffff; --gd-plane-accent: #ff6b5a;
+  --gd-shadow: rgba(40, 70, 30, 0.22); --gd-shoe: #4a3a30; --gd-trousers: #4b5468; --gd-jeans: #4f6f9e; --gd-dust: rgba(150, 130, 100, 0.45);
+  --gd-paper: #ffffff; --gd-paper-fold: #dfe6ee; --gd-paper-line: #b7c3cf;
+  --gd-case-a: #ff9f68; --gd-case-b: #6cc4c9; --gd-case-c: #b39ddb; --gd-case-handle: #5b6573;
+  --gd-butterfly-a: #ffb347; --gd-butterfly-b: #ffd98a; --gd-butterfly-c: #8ec5ff; --gd-butterfly-op: 1;
+  --gd-firefly: #fff6a8; --gd-firefly-glow: rgba(255, 236, 120, 0.6); --gd-firefly-op: 0; --gd-veil: #10202e;
+  --gd-stone: #ead6ad; --gd-stone-sh: #c8ab7a; --gd-iron: #8b6c58; --gd-fuji: #7f9cc9; --gd-blossom: #ffc4d6; --gd-blossom2: #ff9fbd; --gd-red: #e2513f;
+  --gd-pyramid: #edcb8c; --gd-pyramid-sh: #cfa865; --gd-city: #a9b8c9; --gd-city2: #8ea0b5; --gd-window: #e3edf6; --gd-supertree: #b371bb;
+  --gd-liberty: #73c2a8; --gd-opera: #ffffff; --gd-opera-sh: #d9e1ea; --gd-bridge: #7b8794;
+  --gd-ink: #22313f; --gd-chip-bg: rgba(255, 255, 255, 0.85); --gd-menu-bg: rgba(255, 255, 255, 0.94); --gd-hover: rgba(34, 49, 63, 0.07); --gd-selected: rgba(47, 128, 196, 0.12); --gd-focus: #2f80c4; --gd-kbd-bg: #ffffff; --gd-kbd-border: #b8c3cc;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --gd-sky-top: #0f1a3a; --gd-sky-bottom: #3a3f73; --gd-sun: #f3f0d8; --gd-star: #ffffff; --gd-star-op: 0.9; --gd-cloud: #4f5688;
+    --gd-grass: #2f6b4f; --gd-grass2: #275b43; --gd-hill-far: #2c5550;
+    --gd-leaf: #2c6b4a; --gd-leaf2: #367c55; --gd-trunk: #5e4433; --gd-flower-a: #d97a95; --gd-flower-b: #e6d27a; --gd-flower-c: #9a8be0;
+    --gd-mtn: #3b4a72; --gd-mtn2: #33405f; --gd-snow: #c9d3ee; --gd-pine: #24553f;
+    --gd-sea: #1f4f7a; --gd-sea2: #3f78a6; --gd-sand: #8c7a5a; --gd-sand2: #77684b; --gd-palm: #2c6b4a;
+    --gd-runway: #3b404a; --gd-runway-mark: #d9dde6; --gd-light: #ffd66b; --gd-light-op: 1;
+    --gd-tower: #6b6f80; --gd-tower-glass: #ffd66b; --gd-sock: #d9733a; --gd-sock2: #c9ccd6; --gd-hangar: #4a5468; --gd-hangar-door: #e0b85a;
+    --gd-plane: #c9ccd6; --gd-plane-accent: #d9604f;
+    --gd-shadow: rgba(0, 0, 0, 0.35); --gd-shoe: #231c18; --gd-trousers: #39404f; --gd-jeans: #3a5276; --gd-dust: rgba(160, 170, 200, 0.3);
+    --gd-paper: #e6e9f2; --gd-paper-fold: #b9c0d3; --gd-paper-line: #8790a8;
+    --gd-case-a: #d9875a; --gd-case-b: #4f9ea3; --gd-case-c: #8f7cb8; --gd-case-handle: #9aa3b5;
+    --gd-butterfly-a: #ffb347; --gd-butterfly-b: #ffd98a; --gd-butterfly-c: #8ec5ff; --gd-butterfly-op: 0;
+    --gd-firefly: #fff6a8; --gd-firefly-glow: rgba(255, 236, 120, 0.7); --gd-firefly-op: 1; --gd-veil: #050912;
+    --gd-stone: #6f6757; --gd-stone-sh: #514a3e; --gd-iron: #d9aa4c; --gd-fuji: #35426c; --gd-blossom: #b97c95; --gd-blossom2: #9b6581; --gd-red: #a8473b;
+  --gd-pyramid: #7e6b4b; --gd-pyramid-sh: #5f513a; --gd-city: #3c4670; --gd-city2: #2f3759; --gd-window: #ffd66b; --gd-supertree: #c46fd0;
+  --gd-liberty: #3f7e6e; --gd-opera: #d6dae6; --gd-opera-sh: #9ea6bb; --gd-bridge: #4a5268;
+    --gd-ink: #eef2ff; --gd-chip-bg: rgba(15, 22, 45, 0.8); --gd-menu-bg: rgba(15, 22, 45, 0.94); --gd-hover: rgba(255, 255, 255, 0.08); --gd-selected: rgba(142, 197, 255, 0.16); --gd-focus: #8ec5ff; --gd-kbd-bg: #232c4d; --gd-kbd-border: #4b5784;
+  }
+}
+:root[data-theme="dark"] {
+  --gd-sky-top: #0f1a3a; --gd-sky-bottom: #3a3f73; --gd-sun: #f3f0d8; --gd-star: #ffffff; --gd-star-op: 0.9; --gd-cloud: #4f5688;
+  --gd-grass: #2f6b4f; --gd-grass2: #275b43; --gd-hill-far: #2c5550;
+  --gd-leaf: #2c6b4a; --gd-leaf2: #367c55; --gd-trunk: #5e4433; --gd-flower-a: #d97a95; --gd-flower-b: #e6d27a; --gd-flower-c: #9a8be0;
+  --gd-mtn: #3b4a72; --gd-mtn2: #33405f; --gd-snow: #c9d3ee; --gd-pine: #24553f;
+  --gd-sea: #1f4f7a; --gd-sea2: #3f78a6; --gd-sand: #8c7a5a; --gd-sand2: #77684b; --gd-palm: #2c6b4a;
+  --gd-runway: #3b404a; --gd-runway-mark: #d9dde6; --gd-light: #ffd66b; --gd-light-op: 1;
+  --gd-tower: #6b6f80; --gd-tower-glass: #ffd66b; --gd-sock: #d9733a; --gd-sock2: #c9ccd6; --gd-hangar: #4a5468; --gd-hangar-door: #e0b85a;
+  --gd-plane: #c9ccd6; --gd-plane-accent: #d9604f;
+  --gd-shadow: rgba(0, 0, 0, 0.35); --gd-shoe: #231c18; --gd-trousers: #39404f; --gd-jeans: #3a5276; --gd-dust: rgba(160, 170, 200, 0.3);
+    --gd-paper: #e6e9f2; --gd-paper-fold: #b9c0d3; --gd-paper-line: #8790a8;
+    --gd-case-a: #d9875a; --gd-case-b: #4f9ea3; --gd-case-c: #8f7cb8; --gd-case-handle: #9aa3b5;
+    --gd-butterfly-a: #ffb347; --gd-butterfly-b: #ffd98a; --gd-butterfly-c: #8ec5ff; --gd-butterfly-op: 0;
+    --gd-firefly: #fff6a8; --gd-firefly-glow: rgba(255, 236, 120, 0.7); --gd-firefly-op: 1; --gd-veil: #050912;
+  --gd-stone: #6f6757; --gd-stone-sh: #514a3e; --gd-iron: #d9aa4c; --gd-fuji: #35426c; --gd-blossom: #b97c95; --gd-blossom2: #9b6581; --gd-red: #a8473b;
+  --gd-pyramid: #7e6b4b; --gd-pyramid-sh: #5f513a; --gd-city: #3c4670; --gd-city2: #2f3759; --gd-window: #ffd66b; --gd-supertree: #c46fd0;
+  --gd-liberty: #3f7e6e; --gd-opera: #d6dae6; --gd-opera-sh: #9ea6bb; --gd-bridge: #4a5268;
+  --gd-ink: #eef2ff; --gd-chip-bg: rgba(15, 22, 45, 0.8); --gd-menu-bg: rgba(15, 22, 45, 0.94); --gd-hover: rgba(255, 255, 255, 0.08); --gd-selected: rgba(142, 197, 255, 0.16); --gd-focus: #8ec5ff; --gd-kbd-bg: #232c4d; --gd-kbd-border: #4b5784;
+}

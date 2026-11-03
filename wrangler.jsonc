@@ -1,0 +1,32 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "pm",
+  "main": "src/worker/index.ts",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "not_found_handling": "single-page-application",
+    "run_worker_first": ["/api/*"]
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      // Scripts name the database by its binding (DB), so moving to a fresh database only changes these two lines
+      // (docs/MAINTAINING.md, "Starting over on a fresh database"). Until launch day this is the trial database.
+      "database_name": "pm-trial",
+      "database_id": "replace-with-your-d1-database-id",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "vars": {
+    "MEETING_WEEKDAY": "4",
+    "EMAIL_DOMAIN": "example.edu",
+    // Fill these in after creating the Cloudflare Access application (see docs/MAINTAINING.md, "Turn on sign-in").
+    "ACCESS_TEAM_DOMAIN": "",
+    "ACCESS_AUD": "",
+    "BACKUP_CLIENT_ID": "",
+    // Trial week only: "on" lets signed-in people act as any teammate from the bar at the bottom of the page.
+    // A unit test fails while it is on and database_name doesn't end in -trial, so it can't reach the launch database.
+    "TRIAL_SWITCHER": ""
+  },
+  "observability": { "enabled": true }
+}
